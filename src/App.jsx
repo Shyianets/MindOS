@@ -1,39 +1,46 @@
-import { Box, Button, Card, CardContent, Typography } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import GameShell from './components/GameShell.jsx';
+import { GAME_COLORS } from './game/constants.js';
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: GAME_COLORS.accent,
+    },
+    background: {
+      default: GAME_COLORS.shell,
+      paper: GAME_COLORS.drawer,
+    },
+    text: {
+      primary: GAME_COLORS.text,
+      secondary: GAME_COLORS.textMuted,
+    },
+  },
+  shape: {
+    borderRadius: 10,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 600,
+        },
+        contained: {
+          boxShadow: 'none',
+        },
+      },
+    },
+  },
+});
 
 function App() {
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        background: '#101418',
-        color: 'white',
-        p: 4,
-      }}
-    >
-      <Typography variant="h3" gutterBottom>
-        Adventure Game
-      </Typography>
-
-      <Typography variant="body1" sx={{ mb: 3 }}>
-        A browser game inspired by classic fantasy exploration.
-      </Typography>
-
-      <Card sx={{ maxWidth: 480 }}>
-        <CardContent>
-          <Typography variant="h5" gutterBottom>
-            Start your journey
-          </Typography>
-
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            Choose a hero, explore the map, fight enemies, collect rewards.
-          </Typography>
-
-          <Button variant="contained">
-            Start Game
-          </Button>
-        </CardContent>
-      </Card>
-    </Box>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <GameShell />
+    </ThemeProvider>
   );
 }
 
